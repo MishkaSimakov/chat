@@ -9,13 +9,13 @@
             </div>
             <div class="media" v-for="conversation in conversations" v-else-if="conversations.length">
                 <div class="media-body">
-                    <a href="">{{ trunc(conversation.body, 50) }}</a>
+                    <a href="#" @click.prevent="getConversation(conversation.id)">{{ trunc(conversation.body, 50) }}</a>
                     <p class="text-muted">
                         You and {{ conversation.participant_count }} {{ pluralize('other', conversation.participant_count) }}
                     </p>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img v-bind:src="user.avatar" v-bind:title="user.name" v-bing:alt="user.name + ' avatar'" v-for="user in conversation.users.data">
+                            <img v-bind:alt="user.name + ' avatar'" v-bind:src="user.avatar" v-bind:title="user.name" v-for="user in conversation.users.data">
                         </li>
                         <li class="list-inline-item">
                            last reply {{ conversation.last_reply_human }}
@@ -40,7 +40,8 @@
         }),
         methods: {
             ...mapActions([
-                'getConversations'
+                'getConversation',
+                'getConversations',
             ]),
             trunc: trunc,
             pluralize: pluralize

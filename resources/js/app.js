@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 Vue.component('conversations-dashboard', require('./components/ConversationsDashboard.vue').default);
 Vue.component('conversations', require('./components/Conversations.vue').default);
+Vue.component('conversation', require('./components/Conversation.vue').default);
 
 
 
