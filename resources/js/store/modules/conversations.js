@@ -3,19 +3,26 @@ import conversation from "./conversation";
 
 const state = {
     conversations: [],
-    loadingConversations: false
+    loadingConversations: true
 };
 
 const getters = {
     allConversations: state => {
         return state.conversations
+    },
+    loadingConversations: state => {
+        return state.loadingConversations
     }
 };
 
 const actions = {
     getConversations({dispatch, commit}, page) {
+        commit('setConversationsLoading', true)
+
         api.getConversations(1).then((response) => {
             commit('setConversations', response.data.data)
+
+            commit('setConversationsLoading', false)
         })
     }
 };
@@ -23,6 +30,9 @@ const actions = {
 const mutations = {
     setConversations(state, conversations) {
         state.conversations = conversations
+    },
+    setConversationsLoading(state, status) {
+        state.loadingConversations = status
     }
 };
 
