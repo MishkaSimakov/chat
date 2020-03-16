@@ -28,6 +28,10 @@ const actions = {
     createConversationReply({dispatch, commit}, {id, body}) {
         return api.storeConversationReply(id, {
             body: body
+        }).then((response) => {
+            console.log(response.data);
+            commit('appendToConversations', response.data.data)
+            commit('prependToConversations', response.data.data.parent.data)
         })
     }
 };
@@ -38,7 +42,10 @@ const mutations = {
     },
     setConversationLoading(state, status) {
         state.loadingConversation = status
-    }
+    },
+    appendToConversations(state, reply) {
+      state.conversation.replies.data.unshift(reply)
+    },
 };
 
 export default {
