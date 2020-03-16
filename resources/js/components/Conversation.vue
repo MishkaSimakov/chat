@@ -11,6 +11,8 @@
 
         <hr>
 
+        <conversation-reply-form></conversation-reply-form>
+
         <div class="media" v-for="reply in conversation.replies.data">
             <div class="m-1 float-left">
                 <img v-bind:src="reply.user.data.avatar" v-bind:alt="reply.user.data.name + ' avatar'">
@@ -44,7 +46,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
 
     export default {
         props: [
