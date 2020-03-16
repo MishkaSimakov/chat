@@ -5,7 +5,7 @@
                 <conversations></conversations>
             </div>
             <div class="col-sm-7">
-                <conversation></conversation>
+                <conversation v-bind:id="id"></conversation>
             </div>
         </div>
     </div>
@@ -13,8 +13,10 @@
 
 <script>
     export default {
-        mounted() {
-
-        }
+        props: {
+            'id': {
+                default: null
+            }
+        },
     }
 </script>
