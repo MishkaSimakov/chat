@@ -167,6 +167,8 @@ return [
          */
 
         \Spatie\Fractal\FractalServiceProvider::class,
+        \Laravel\Scout\ScoutServiceProvider::class,
+        \Algolia\ScoutExtended\ScoutExtendedServiceProvider::class,
 
         /*
          * Application Service Providers...
