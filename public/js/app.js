@@ -5935,6 +5935,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_autocomplete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helpers/autocomplete */ "./resources/js/helpers/autocomplete.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
 //
 //
 //
@@ -5963,6 +5972,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5970,7 +5980,7 @@ __webpack_require__.r(__webpack_exports__);
       recipients: []
     };
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['createConversation']), {
     addRecipient: function addRecipient(recipient) {
       var existing = this.recipients.find(function (r) {
         return r.id === recipient.id;
@@ -5986,13 +5996,26 @@ __webpack_require__.r(__webpack_exports__);
       this.recipients = this.recipients.filter(function (r) {
         return r.id !== recipient.id;
       });
+    },
+    send: function send() {
+      var _this = this;
+
+      this.createConversation({
+        body: this.body,
+        recipients: this.recipients.map(function (r) {
+          return r.id;
+        })
+      }).then(function () {
+        _this.recipients = [];
+        _this.body = null;
+      });
     }
-  },
+  }),
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     var users = Object(_helpers_autocomplete__WEBPACK_IMPORTED_MODULE_0__["userautocomplete"])('#users').on('autocomplete:selected', function (e, selection) {
-      _this.addRecipient(selection);
+      _this2.addRecipient(selection);
 
       users.autocomplete.setVal('');
     });
@@ -42465,71 +42488,85 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _vm.recipients.length
-        ? _c(
-            "ul",
-            { staticClass: "list-inline" },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._l(_vm.recipients, function(recipient) {
-                return _c("li", { staticClass: "list-inline-item" }, [
-                  _vm._v(_vm._s(recipient.name) + " ["),
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.removeRecipient(recipient)
-                        }
-                      }
-                    },
-                    [_vm._v("x")]
-                  ),
-                  _vm._v("]")
-                ])
-              })
-            ],
-            2
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "message" } }, [_vm._v("Message")]),
-        _vm._v(" "),
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.body,
-              expression: "body"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            cols: "30",
-            rows: "4",
-            id: "message",
-            placeholder: "Message"
-          },
-          domProps: { value: _vm.body },
+      _c(
+        "form",
+        {
+          attrs: { action: "#" },
           on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.body = $event.target.value
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.send($event)
             }
           }
-        })
-      ]),
-      _vm._v(" "),
-      _vm._m(2)
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm.recipients.length
+            ? _c(
+                "ul",
+                { staticClass: "list-inline" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._l(_vm.recipients, function(recipient) {
+                    return _c("li", { staticClass: "list-inline-item" }, [
+                      _vm._v(_vm._s(recipient.name) + " ["),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.removeRecipient(recipient)
+                            }
+                          }
+                        },
+                        [_vm._v("x")]
+                      ),
+                      _vm._v("]")
+                    ])
+                  })
+                ],
+                2
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "message" } }, [_vm._v("Message")]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.body,
+                  expression: "body"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                cols: "30",
+                rows: "4",
+                id: "message",
+                placeholder: "Message"
+              },
+              domProps: { value: _vm.body },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.body = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(2)
+        ]
+      )
     ])
   ])
 }
@@ -56388,6 +56425,18 @@ __webpack_require__.r(__webpack_exports__);
         resolve(response);
       });
     });
+  },
+  storeConversation: function storeConversation(_ref2) {
+    var body = _ref2.body,
+        recipients = _ref2.recipients;
+    return new Promise(function (resolve, reject) {
+      axios.post('/webapi/conversations/', {
+        body: body,
+        recipients: recipients
+      }).then(function (response) {
+        resolve(response);
+      });
+    });
   }
 });
 
@@ -56460,9 +56509,21 @@ var actions = {
     return _api_all__WEBPACK_IMPORTED_MODULE_0__["default"].storeConversationReply(id, {
       body: body
     }).then(function (response) {
-      console.log(response.data);
       commit('appendToConversations', response.data.data);
       commit('prependToConversations', response.data.data.parent.data);
+    });
+  },
+  createConversation: function createConversation(_ref4, _ref5) {
+    var dispatch = _ref4.dispatch,
+        commit = _ref4.commit;
+    var body = _ref5.body,
+        recipients = _ref5.recipients;
+    return _api_all__WEBPACK_IMPORTED_MODULE_0__["default"].storeConversation({
+      body: body,
+      recipients: recipients
+    }).then(function (response) {
+      dispatch('getConversation', response.data.data.id);
+      commit('prependToConversations', response.data.data);
     });
   }
 };
