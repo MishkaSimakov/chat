@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Conversation;
+use App\Events\ConversationReplyCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreConverationReplyRequest;
 use App\Transformers\ConversationTransformer;
@@ -25,6 +26,8 @@ class ConversationReplyController extends Controller
 
         $conversation->replies()->save($reply);
         $conversation->touchLastReply();
+
+        broadcast(new ConversationReplyCreated($reply))->toOthers();
 
         return fractal()
             ->item($reply)

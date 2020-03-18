@@ -21,8 +21,18 @@ const actions = {
 
         api.getConversations(1).then((response) => {
             commit('setConversations', response.data.data)
-
             commit('setConversationsLoading', false)
+
+            Echo.private(`user.${window.user.id}`)
+                .listen('ConversationCreated', (e) => {
+                    commit('prependToConversations', e.data)
+                })
+                .listen('ConversationReplyCreated', (e) => {
+                    commit('prependToConversations', e.data.parent.data)
+                })
+                .listen('ConversationUserCreated', (e) => {
+                    commit('updateConversationInList', e.data)
+                });
         })
     }
 };
@@ -37,9 +47,18 @@ const mutations = {
     prependToConversations(state, conversation) {
         state.conversations = state.conversations.filter((c) => {
             return c.id !== conversation.id
-        })
+        });
 
         state.conversations.unshift(conversation)
+    },
+    updateConversationInList(state, conversation) {
+        state.conversations = state.conversations.map((c) => {
+            if (c.id === conversation.id) {
+                return conversation
+            }
+
+            return c
+        })
     }
 };
 

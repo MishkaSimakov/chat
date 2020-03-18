@@ -18,9 +18,21 @@ const actions = {
     getConversation({dispatch, commit}, id) {
         commit('setConversationLoading', true)
 
+        if (state.conversation) {
+            Echo.leave('conversation.' + state.conversation.id)
+        }
+
         api.getConversation(id).then((response) => {
             commit('setConversation', response.data.data);
             commit('setConversationLoading', false);
+
+            Echo.private('conversation.' + id)
+                .listen('ConversationReplyCreated', (e) => {
+                    commit('appendToConversation', e.data)
+                })
+                .listen('ConversationUserCreated', (e) => {
+                    commit('updateUsersInConversation', e.data.users.data)
+                });
 
             window.history.pushState(null, null, '/conversations/' + id)
         })
@@ -29,7 +41,7 @@ const actions = {
         return api.storeConversationReply(id, {
             body: body
         }).then((response) => {
-            commit('appendToConversations', response.data.data)
+            commit('appendToConversation', response.data.data)
             commit('prependToConversations', response.data.data.parent.data)
         })
     },
@@ -46,7 +58,8 @@ const actions = {
         return api.storeConversationUsers(id, {
             recipients: recipients
         }).then((response) => {
-
+            commit('updateUsersInConversation', response.data.data.users.data)
+            commit('updateConversationInList', response.data.data)
         })
     }
 };
@@ -58,9 +71,12 @@ const mutations = {
     setConversationLoading(state, status) {
         state.loadingConversation = status
     },
-    appendToConversations(state, reply) {
+    appendToConversation(state, reply) {
       state.conversation.replies.data.unshift(reply)
     },
+    updateUsersInConversation(state, users) {
+        state.conversation.users.data = users
+    }
 };
 
 export default {

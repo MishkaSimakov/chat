@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Conversation;
+use App\Events\ConversationUserCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCovnersationUserRequest;
 use App\Transformers\ConversationTransformer;
@@ -17,6 +18,8 @@ class ConversationUserController extends Controller
         $conversation->users()->syncWithoutDetaching($request->recipients);
 
         $conversation->load(['users']);
+
+        broadcast(new ConversationUserCreated($conversation))->toOthers();
 
         return fractal()
             ->item($conversation)
