@@ -9,9 +9,13 @@
             <li class="list-inline-item" v-for="user in conversation.users.data">{{ user.name }}</li>
         </div>
 
+        <conversation-add-user-form></conversation-add-user-form>
+
         <hr>
 
         <conversation-reply-form></conversation-reply-form>
+
+        <hr>
 
         <div class="media" v-for="reply in conversation.replies.data">
             <div class="m-1 float-left">

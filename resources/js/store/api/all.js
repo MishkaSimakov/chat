@@ -32,4 +32,13 @@ export default {
             })
         })
     },
+    storeConversationUsers(id, {recipients}) {
+        return new Promise((resolve, reject) => {
+            axios.post('/webapi/conversations/' + id + "/users", {
+                recipients: recipients
+            }).then((response) => {
+                resolve(response)
+            })
+        })
+    },
 }

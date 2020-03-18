@@ -18,10 +18,10 @@ function newHitsSource(index, params) {
 }
 
 export const userautocomplete = selector => {
-    index = index.initIndex('users');
+    var users = index.initIndex('users');
 
     return autocomplete(selector, {}, {
-        source: newHitsSource(index, { hitsPerPage: 5 }),
+        source: newHitsSource(users, { hitsPerPage: 5 }),
         displayKey: 'name',
         templates: {
             suggestion(suggestion) {

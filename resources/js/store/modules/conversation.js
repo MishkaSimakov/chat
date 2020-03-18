@@ -41,6 +41,13 @@ const actions = {
             dispatch('getConversation', response.data.data.id)
             commit('prependToConversations', response.data.data)
         })
+    },
+    addConversationUsers({dispatch, commit}, {id, recipients}) {
+        return api.storeConversationUsers(id, {
+            recipients: recipients
+        }).then((response) => {
+
+        })
     }
 };
 

@@ -5806,6 +5806,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
@@ -5920,6 +5924,56 @@ __webpack_require__.r(__webpack_exports__);
     'id': {
       "default": null
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helpers_autocomplete__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helpers/autocomplete */ "./resources/js/helpers/autocomplete.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    conversation: 'currentConversation'
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['addConversationUsers'])),
+  mounted: function mounted() {
+    var _this = this;
+
+    var users = Object(_helpers_autocomplete__WEBPACK_IMPORTED_MODULE_0__["userautocomplete"])('#users-add').on('autocomplete:selected', function (e, selection) {
+      _this.addConversationUsers({
+        id: _this.conversation.id,
+        recipients: [selection].map(function (recipient) {
+          return recipient.id;
+        })
+      });
+
+      users.autocomplete.setVal('');
+    });
   }
 });
 
@@ -42236,9 +42290,13 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
+          _c("conversation-add-user-form"),
+          _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
           _c("conversation-reply-form"),
+          _vm._v(" "),
+          _c("hr"),
           _vm._v(" "),
           _vm._l(_vm.conversation.replies.data, function(reply) {
             return _c("div", { staticClass: "media" }, [
@@ -42461,6 +42519,57 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=template&id=6cdccbb2&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=template&id=6cdccbb2& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "form",
+    {
+      attrs: { action: "#" },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+        }
+      }
+    },
+    [_vm._m(0)]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          id: "users-add",
+          placeholder: "Start typing to find users"
+        }
+      })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -55930,10 +56039,11 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.use(vuex__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.component('conversations-dashboard', __webpack_require__(/*! ./components/ConversationsDashboard.vue */ "./resources/js/components/ConversationsDashboard.vue")["default"]);
-Vue.component('conversation-reply-form', __webpack_require__(/*! ./components/forms/ConversationReplyForm.vue */ "./resources/js/components/forms/ConversationReplyForm.vue")["default"]);
-Vue.component('conversation-form', __webpack_require__(/*! ./components/forms/ConversationForm.vue */ "./resources/js/components/forms/ConversationForm.vue")["default"]);
 Vue.component('conversations', __webpack_require__(/*! ./components/Conversations.vue */ "./resources/js/components/Conversations.vue")["default"]);
 Vue.component('conversation', __webpack_require__(/*! ./components/Conversation.vue */ "./resources/js/components/Conversation.vue")["default"]);
+Vue.component('conversation-reply-form', __webpack_require__(/*! ./components/forms/ConversationReplyForm.vue */ "./resources/js/components/forms/ConversationReplyForm.vue")["default"]);
+Vue.component('conversation-form', __webpack_require__(/*! ./components/forms/ConversationForm.vue */ "./resources/js/components/forms/ConversationForm.vue")["default"]);
+Vue.component('conversation-add-user-form', __webpack_require__(/*! ./components/forms/ConversationAddUserForm.vue */ "./resources/js/components/forms/ConversationAddUserForm.vue")["default"]);
 
 var app = new Vue({
   el: '#app',
@@ -56194,6 +56304,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/forms/ConversationAddUserForm.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/forms/ConversationAddUserForm.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ConversationAddUserForm_vue_vue_type_template_id_6cdccbb2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ConversationAddUserForm.vue?vue&type=template&id=6cdccbb2& */ "./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=template&id=6cdccbb2&");
+/* harmony import */ var _ConversationAddUserForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ConversationAddUserForm.vue?vue&type=script&lang=js& */ "./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ConversationAddUserForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ConversationAddUserForm_vue_vue_type_template_id_6cdccbb2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ConversationAddUserForm_vue_vue_type_template_id_6cdccbb2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/forms/ConversationAddUserForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConversationAddUserForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ConversationAddUserForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConversationAddUserForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=template&id=6cdccbb2&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=template&id=6cdccbb2& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConversationAddUserForm_vue_vue_type_template_id_6cdccbb2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ConversationAddUserForm.vue?vue&type=template&id=6cdccbb2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/forms/ConversationAddUserForm.vue?vue&type=template&id=6cdccbb2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConversationAddUserForm_vue_vue_type_template_id_6cdccbb2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConversationAddUserForm_vue_vue_type_template_id_6cdccbb2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/forms/ConversationForm.vue":
 /*!************************************************************!*\
   !*** ./resources/js/components/forms/ConversationForm.vue ***!
@@ -56362,9 +56541,9 @@ function newHitsSource(index, params) {
 }
 
 var userautocomplete = function userautocomplete(selector) {
-  index = index.initIndex('users');
+  var users = index.initIndex('users');
   return autocomplete_js__WEBPACK_IMPORTED_MODULE_1___default()(selector, {}, {
-    source: newHitsSource(index, {
+    source: newHitsSource(users, {
       hitsPerPage: 5
     }),
     displayKey: 'name',
@@ -56432,6 +56611,16 @@ __webpack_require__.r(__webpack_exports__);
     return new Promise(function (resolve, reject) {
       axios.post('/webapi/conversations/', {
         body: body,
+        recipients: recipients
+      }).then(function (response) {
+        resolve(response);
+      });
+    });
+  },
+  storeConversationUsers: function storeConversationUsers(id, _ref3) {
+    var recipients = _ref3.recipients;
+    return new Promise(function (resolve, reject) {
+      axios.post('/webapi/conversations/' + id + "/users", {
         recipients: recipients
       }).then(function (response) {
         resolve(response);
@@ -56525,6 +56714,15 @@ var actions = {
       dispatch('getConversation', response.data.data.id);
       commit('prependToConversations', response.data.data);
     });
+  },
+  addConversationUsers: function addConversationUsers(_ref6, _ref7) {
+    var dispatch = _ref6.dispatch,
+        commit = _ref6.commit;
+    var id = _ref7.id,
+        recipients = _ref7.recipients;
+    return _api_all__WEBPACK_IMPORTED_MODULE_0__["default"].storeConversationUsers(id, {
+      recipients: recipients
+    }).then(function (response) {});
   }
 };
 var mutations = {
